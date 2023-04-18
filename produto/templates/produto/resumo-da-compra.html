@@ -1,0 +1,82 @@
+{% extends 'base.html'%}
+{% load filtros %}
+{% block 'title' %} Resumo {% endblock %}
+{%block 'conteudo' %}
+
+
+<div class="row mb-5">
+    <div class="col-lg">
+        <h2>Resumo da sua compra</h2>
+
+        <p class="lead">Confirme seus dados antes de finalizar a compra</p>
+        <p>Caso precise editá-los, <a href="{% url 'perfil:criar' %}">clique aqui</a></p>
+        <dl class="row">
+            <dt class="col-lg-2">Nome:</dt>
+            <dd class="col-lg-4">{{usuario.first_name}}</dd>
+            <dt class="col-lg-2">Sobrenome:</dt>
+            <dd class="col-lg-4">{{usuario.last_name}}</dd>
+
+            <dt class="col-lg-2">Idade:</dt>
+            <dd class="col-lg-4">{{perfil.idade}}</dd>
+            <dt class="col-lg-2">Nascimento:</dt>
+            <dd class="col-lg-4">{{perfil.data_nascimento}}</dd>
+
+            <dt class="col-lg-2">CPF:</dt>
+            <dd class="col-lg-4">{{perfil.cpf}}</dd>
+            <dt class="col-lg-2">E-mail:</dt>
+            <dd class="col-lg-4">{{usuario.email}}</dd>
+        </dl>
+
+        <p class="lead">Dados de endereço</p>
+
+        <dl class="row">
+            <dt class="col-lg-2">Endereço:</dt>
+            <dd class="col-lg-4">{{endereco.endereco}}</dd>
+            <dt class="col-lg-2">Número:</dt>
+            <dd class="col-lg-4">{{endereco.numero}}</dd>
+
+            <dt class="col-lg-2">Bairro:</dt>
+            <dd class="col-lg-4">{{endereco.bairro}}</dd>
+            <dt class="col-lg-2">Complemento:</dt>
+            <dd class="col-lg-4">{{endereco.complemento}}</dd>
+
+            <dt class="col-lg-2">Cidade:</dt>
+            <dd class="col-lg-4">{{endereco.cidade}}</dd>
+            <dt class="col-lg-2">Estado:</dt>
+            <dd class="col-lg-4">{{endereco.estado}}</dd>
+
+            <dt class="col-lg-2">CEP:</dt>
+            <dd class="col-lg-4">{{endereco.cep}}</dd>
+        </dl>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col">
+        <h3>Carrinho de compras</h3>
+        <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
+
+        {% include 'partial/_carrinho.html' %}
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <p class="lead text-center">
+            <span class="font-weight-bold">Total do carrinho: </span>
+            {{request.session.carrinho | total_carrinho | formata_preco}}
+        </p>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-block btn-primary btn-lg" href="{% url 'pedido:salvarpedido' %}">
+            Realizar pagamento
+        </a>
+    </div>
+</div>
+
+{% endblock %}
